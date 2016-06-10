@@ -54,7 +54,8 @@ public class BigBidServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String path = this.getPath(request);
+        request.getRequestDispatcher("/views/view.html").forward(request, response);
+        /*String path = this.getPath(request);
         this.setLocale(request);
         this.noCacheHeaders(response);
 
@@ -86,7 +87,7 @@ public class BigBidServlet extends HttpServlet {
             }
         } catch (RequestException e) {
             response.sendError(e.getCode());
-        }
+        }*/
     }
 
     @Override

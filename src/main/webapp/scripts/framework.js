@@ -296,29 +296,45 @@ String.prototype.replaceAll = function(search, replace)
     return this.replace(new RegExp('[' + search + ']', 'g'), replace);
 };*/
 
-var bigBidApp = angular.module('bigBidApp',[]);
+var bigBidApp = angular.module('bigBidApp',['ngRoute']);
 
-bigBidApp.config(['$routeProvider',
+bigBidApp.config(
     function($routeProvider) {
         $routeProvider.
             when('/login',{
-                temblateUrl: '../views/login.html',
+                templateUrl: '../views/login.html',
                 controller: 'loginController'
         }).
             when('/register',{
-                temblateUrl: '../views/register.html',
+                templateUrl: '../views/registration.html',
                 controller: 'registerController'
         }).
             when('/overview',{
-                temblateUrl: '../views/overview.html',
+                templateUrl: '../views/overview.html',
                 controller: 'overviewController'
         }).
             when('/details',{
-                temblateUrl: '../views/details.html',
-                controller: 'loginController'
+                templateUrl: '../views/details.html',
+                controller: 'detailsController'
         }).
             otherwise({
                 redirectTo: '/login'
         });
-    }]);
+    }
+);
 
+bigBidApp.controller('loginController', function ($scope) {
+    $scope.action = 'register';
+});
+
+bigBidApp.controller('registerController', function ($scope) {
+    $scope.action = 'login';
+});
+
+bigBidApp.controller('overviewController', function ($scope) {
+    $scope.action = 'logout';
+});
+
+bigBidApp.controller('detailsController', function ($scope) {
+    $scope.action = 'logout';
+});
