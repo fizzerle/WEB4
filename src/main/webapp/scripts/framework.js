@@ -296,7 +296,7 @@ String.prototype.replaceAll = function(search, replace)
     return this.replace(new RegExp('[' + search + ']', 'g'), replace);
 };*/
 
-var bigBidApp = angular.module('bigBidApp',['ngRoute']);
+var bigBidApp = angular.module('bigBidApp',['ngRoute','ngStorage']);
 
 bigBidApp.config(
     function($routeProvider) {
@@ -323,8 +323,35 @@ bigBidApp.config(
     }
 );
 
-bigBidApp.controller('loginController', function ($scope) {
+/*bigBidApp.controller('General',function ($scope,$http,$locale,$localStorage) {
+    $scope.storage = $localStorage;
+    //$scope.storage.user = ...
+});*/
+
+bigBidApp.controller('loginController', function ($scope,$http,$location) {
     $scope.action = 'register';
+    $scope.formData = {};
+    $scope.processForm = function () {
+        $http({
+            method  : 'POST',
+            url     : '/login',
+            data    : $.param($scope.formData),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function(data) {
+                console.log(data);
+
+                if (!data.success) {
+                    $location.path('/overview');
+                    // if not successful, bind errors to error variables
+                    //$scope.errorName = data.errors.name;
+                    //$scope.errorSuperhero = data.errors.superheroAlias;
+                } else {
+                    // if successful, bind success message to message
+                    //$scope.message = data.message;
+                }
+            });
+    };
 });
 
 bigBidApp.controller('registerController', function ($scope,$locale) {

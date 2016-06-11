@@ -2,15 +2,15 @@
 <div ng-include="" src="'../views/header.html'"></div>
 <section class="main-container">
 <main role="main" aria-labelledby="formheadline">
-    <form class="form" method="post">
+    <form class="form" ng-submit="processForm()">
         <h2 id="formheadline" class="registration-headline"><!--Headline--></h2>
         <div class="form-row">
             <label class="form-label" for="email-input">Email</label>
-            <input type="email" name="email" id="email-input" required class="form-input">
+            <input type="email" name="email" id="email-input" required class="form-input" ng-model="formData.email">
         </div>
         <div class="form-row">
             <label class="form-label" for="password-input">password</label>
-            <input type="password" name="password" id="password-input" required class="form-input" minlength="4" maxlength="12">
+            <input type="password" name="password" id="password-input" required class="form-input" minlength="4" maxlength="12" ng-model="formData.password">
         </div>
         <div class="form-row form-row-center">
             <button class="button button-submit">login</button>

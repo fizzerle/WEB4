@@ -67,7 +67,6 @@ public class NotifierService {
             try {
                 NotifierService.this.twitterService.publishUuid(new TwitterStatusMessage(highestBid.getUser().getFullName(), uuid, new Date()));
             } catch (TwitterException e) {
-                // TODO
                 e.printStackTrace();
             }
         });
