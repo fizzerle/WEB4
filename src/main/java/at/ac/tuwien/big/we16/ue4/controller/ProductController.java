@@ -8,10 +8,13 @@ import at.ac.tuwien.big.we16.ue4.model.User;
 import at.ac.tuwien.big.we16.ue4.service.AuthService;
 import at.ac.tuwien.big.we16.ue4.service.BidService;
 import at.ac.tuwien.big.we16.ue4.service.ProductService;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
@@ -29,8 +32,32 @@ public class ProductController {
     }
 
     public void getOverview(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try{
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("user");
+            user.getConvertedBalance();
+            response.setContentType("application/json");
+            response.setCharacterEncoding("UTF-8");
+            PrintWriter out = response.getWriter();
+            //JSONObject jsonObj = (JSONObject) JSONValue.parse(request.getParameter("para"));
+            //System.out.println(jsonObj.get("message"));
+            JSONObject obj = new JSONObject();
+            obj.put("success",true);
+            obj.put("name",user.getFullName());
+            obj.put("balance",user.getConvertedBalance());
+            obj.put("running",user.getRunningAuctionsCount());
+            obj.put("lost",user.getLostAuctionsCount());
+            obj.put("won",user.getWonAuctionsCount());
+            obj.put("products",this.productService.getAllProducts());
+            out.write(obj.toString());
+        }catch (JSONException e){
+            e.printStackTrace();
+            throw new ServletException(e.getMessage());
+        }
+        /*
         request.setAttribute("products", this.productService.getAllProducts());
         request.getRequestDispatcher("/views/overview.jsp").forward(request, response);
+        */
     }
 
     public void getDetails(HttpServletRequest request, HttpServletResponse response, String id) throws ServletException, IOException, ProductNotFoundException {

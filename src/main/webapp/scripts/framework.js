@@ -345,7 +345,6 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
                 if (data.success) {
                     $scope.credentialsError = '';
                     $location.path('/overview');
-
                 } else {
                     $scope.credentialsError = $scope.credentialsErrorBuffer;
                 }
@@ -450,6 +449,27 @@ bigBidApp.controller('overviewController', function ($scope) {
 
     }
     $scope.sideHead = '';
+
+    $http({
+        method  : 'GET',
+        url     : '/',
+        data    : $.param($scope.formData),  // pass in data as strings
+        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+    })
+        .success(function(data) {
+            console.log(data);
+
+            if (data.success) {
+                $scope.credentialsError = '';
+                $location.path('/overview');
+            } else {
+                if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
+                    $scope.credentialsError = 'Username oder Passwort ist falsch!';
+                }else{
+                    $scope.credentialsError = 'Username or Password is wrong!';
+                }
+            }
+        });
 });
 
 bigBidApp.controller('detailsController', function ($scope) {
@@ -472,5 +492,4 @@ bigBidApp.directive('age',function () {
         }
     }
 });
-
 

@@ -54,8 +54,7 @@ public class BigBidServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/views/view.html").forward(request, response);
-        /*String path = this.getPath(request);
+        String path = this.getPath(request);
         this.setLocale(request);
         this.noCacheHeaders(response);
 
@@ -87,7 +86,7 @@ public class BigBidServlet extends HttpServlet {
             }
         } catch (RequestException e) {
             response.sendError(e.getCode());
-        }*/
+        }
     }
 
     @Override
@@ -195,12 +194,12 @@ public class BigBidServlet extends HttpServlet {
      * @return True if no user is authenticated for the given request.
      * @throws IOException
      */
-    private boolean checkAuth(HttpServletRequest request, HttpServletResponse response, String path) throws IOException, UserNotFoundException {
+    private boolean checkAuth(HttpServletRequest request, HttpServletResponse response, String path) throws IOException, UserNotFoundException,ServletException {
         if (!this.authService.isLoggedIn(request.getSession()) && !this.isPublicPath(path)) {
-        	//TODO: Rather specify that the user is null
-            response.sendRedirect(LOGIN_PATH);
+            request.getRequestDispatcher("/views/view.html").forward(request, response);
             return true;
         }
+        //TODO: ist noch nicht fertig hier drunter
         request.setAttribute("user", this.authService.getUser(request.getSession()));
         return false;
     }
