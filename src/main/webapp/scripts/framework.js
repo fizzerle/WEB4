@@ -329,6 +329,7 @@ bigBidApp.config(
 });*/
 
 bigBidApp.controller('loginController', function ($scope,$http,$location,$locale) {
+    $scope.credentialsError = '';
     $scope.action = 'register';
     $scope.formData = {};
     $scope.processForm = function () {
@@ -341,14 +342,16 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
             .success(function(data) {
                 console.log(data);
 
-                if (!data.success) {
+                if (data.success) {
+                    $scope.credentialsError = '';
                     $location.path('/overview');
-                    // if not successful, bind errors to error variables
-                    //$scope.errorName = data.errors.name;
-                    //$scope.errorSuperhero = data.errors.superheroAlias;
+
                 } else {
-                    // if successful, bind success message to message
-                    //$scope.message = data.message;
+                    if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
+                        $scope.credentialsError = 'Username oder Passwort ist falsch!';
+                    }else{
+                        $scope.credentialsError = 'Username or Password is wrong!';
+                    }
                 }
             });
     };

@@ -16,10 +16,12 @@
         </div>
         <span ng-show="loginForm.password.$dirty && (loginForm.password.$error.required ||
         loginForm.password.$error.minlength || loginForm.password.$error.maxlength)" id="password-error" class="error-text" style="display: block">{{passwordError}}</span>
+        <div class="form-row">
+            <span class="error-text" style="display: block">{{credentialsError}}</span>
+        </div>
         <div class="form-row form-row-center">
             <button class="button button-submit">login</button>
         </div>
-
     </form>
 </main>
 </section>
