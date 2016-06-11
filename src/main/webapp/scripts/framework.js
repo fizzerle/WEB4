@@ -327,8 +327,39 @@ bigBidApp.controller('loginController', function ($scope) {
     $scope.action = 'register';
 });
 
-bigBidApp.controller('registerController', function ($scope) {
-    $scope.action = 'login';
+bigBidApp.controller('registerController', function ($scope,$locale) {
+
+    if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
+        //Code, wenn der Browser auf Deutsch eingestellt ist
+        $scope.action = 'Anmelden';
+        $scope.formHeadline = 'Registrieren';
+        $scope.legendPD = 'Persönliche Daten';
+        $scope.salutationLabel = 'Anrede';
+        $scope.ms = 'Frau';
+        $scope.mr = 'Herr';
+        $scope.salutationError = 'Wählen sie eine Anrede!';
+        $scope.firstnameLabel = 'Vorname';
+        $scope.firstnameError = 'Feld Vorname darf nicht leer sein!';
+        $scope.lastnameLabel = 'Nachname';
+        $scope.lastnameError = 'Feld Nachname darf nicht leer sein!';
+        $scope.dateofbirthLabel = 'Geburtsdatum';
+        $scope.dateofbirthError = 'Geben sie ein gültiges Datum ein!'
+    } else {
+        //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
+        $scope.action = 'login';
+        $scope.formHeadline = 'Register';
+        $scope.legendPD = 'Personal Data';
+        $scope.salutationLabel = 'salutation';
+        $scope.ms = 'Ms.';
+        $scope.mr = 'Mr.';
+        $scope.salutationError = 'Select a salutation!';
+        $scope.firstnameLabel = 'Firstname';
+        $scope.firstnameError = 'Firstname must not be empty!';
+        $scope.lastnameLabel = 'Lastname';
+        $scope.lastnameError = 'Lastname must not be empty!';
+        $scope.dateofbirthLabel = 'Date of birth';
+        $scope.dateofbirthError = 'Enter a valid birthdate!'
+    }
 });
 
 bigBidApp.controller('overviewController', function ($scope) {
@@ -338,3 +369,23 @@ bigBidApp.controller('overviewController', function ($scope) {
 bigBidApp.controller('detailsController', function ($scope) {
     $scope.action = 'logout';
 });
+
+bigBidApp.directive('age',function () {
+    return{
+        require: 'ngModel',
+        link: function (scope, element, attrs, ngModel) {
+            scope.$validators.age =
+                function(modelValue, viewValue){
+                    var date = modelValue;
+                    var ageDate = new Date(Date.now()-date.getTime());
+                    var age = Math.abs(ageDate.getUTCFullYear() - 1970)
+                    return age >= 18;
+                }
+
+
+
+        }
+    }
+});
+
+angular.module('')
