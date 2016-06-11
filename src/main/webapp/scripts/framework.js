@@ -343,7 +343,8 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
         $scope.lastnameLabel = 'Nachname';
         $scope.lastnameError = 'Feld Nachname darf nicht leer sein!';
         $scope.dateofbirthLabel = 'Geburtsdatum';
-        $scope.dateofbirthError = 'Geben sie ein gültiges Datum ein!'
+        $scope.dateofbirthError = 'Geben sie ein gültiges Datum ein!';
+        $scope.ageError = 'Sie müssen mindestens 18 sein';
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
         $scope.action = 'login';
@@ -358,7 +359,8 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
         $scope.lastnameLabel = 'Lastname';
         $scope.lastnameError = 'Lastname must not be empty!';
         $scope.dateofbirthLabel = 'Date of birth';
-        $scope.dateofbirthError = 'Enter a valid birthdate!'
+        $scope.dateofbirthError = 'Enter a valid birthdate!';
+        $scope.ageError = 'You must be at least 18!';
     }
 });
 
@@ -374,18 +376,16 @@ bigBidApp.directive('age',function () {
     return{
         require: 'ngModel',
         link: function (scope, element, attrs, ngModel) {
-            scope.$validators.age =
+            ngModel.$validators.age =
                 function(modelValue, viewValue){
                     var date = modelValue;
-                    var ageDate = new Date(Date.now()-date.getTime());
-                    var age = Math.abs(ageDate.getUTCFullYear() - 1970)
+                    if (date == null) return false;
+                    var ageDifMs = Date.now() - date.getTime();
+                    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+                    var age =  Math.abs(ageDate.getUTCFullYear() - 1970);
                     return age >= 18;
                 }
-
-
-
         }
     }
 });
 
-angular.module('')

@@ -41,7 +41,9 @@
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.dateofbirth.$dirty && (registrationForm.dateofbirth.$error.required || registrationForm.dateofbirth.$error.date)" id="dateofbirth-input-error" class="error-text" style="display: block">{{dateofbirthError}}</span>
-        <span ng-show="registrationForm.dateofbirth.$dirty && registrationForm.dateofbirth.$error.age" id="age-input-error" class="error-text" style="display: block">{{ageError}}</span>
+        <span ng-show="registrationForm.dateofbirth.$dirty &&
+         !(registrationForm.dateofbirth.$error.required || registrationForm.dateofbirth.$error.date)
+         && registrationForm.dateofbirth.$error.age" id="age-input-error" class="error-text" style="display: block">{{ageError}}</span>
     </fieldset>
 </form>
 
