@@ -2,11 +2,11 @@
     <div class="user-info-container">
         <dl class="user-data properties">
             <dd class="user-name">{{userFullName}}</dd>
-            <dt>{{balanceLabel}}:</dt>
+            <dt>{{balanceLabel+':'}}</dt>
             <dd>
                 <span class="balance">{{balance | currency:'€ ':2}} </span>
             </dd>
-            <dt><{{runningLabel}}:</dt>
+            <dt>{{runningLabel}}:</dt>
             <dd>
                 <span class="running-auctions-count">{{runningAuctions}}</span>
                 <span class="auction-label" >{{runningAuctionsLabel}}</span>

@@ -435,7 +435,7 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
     }
 });
 
-bigBidApp.controller('overviewController', function ($scope) {
+bigBidApp.controller('overviewController', function ($scope,$locale,$http,$location) {
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
         //Code, wenn der Browser auf Deutsch eingestellt ist
         $scope.action = 'Abmelden';
@@ -444,7 +444,7 @@ bigBidApp.controller('overviewController', function ($scope) {
 
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
-        $scope.action = 'logaut';
+        $scope.action = 'logout';
 
 
     }
@@ -453,21 +453,14 @@ bigBidApp.controller('overviewController', function ($scope) {
     $http({
         method  : 'GET',
         url     : '/',
-        data    : $.param($scope.formData),  // pass in data as strings
-        headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
     })
         .success(function(data) {
             console.log(data);
 
             if (data.success) {
-                $scope.credentialsError = '';
-                $location.path('/overview');
+                $scope.products = data.products;
             } else {
-                if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
-                    $scope.credentialsError = 'Username oder Passwort ist falsch!';
-                }else{
-                    $scope.credentialsError = 'Username or Password is wrong!';
-                }
+                $location.path('/login');
             }
         });
 });
