@@ -1,0 +1,30 @@
+<aside class="sidebar" aria-labelledby="userinfoheadline">
+    <div class="user-info-container">
+        <dl class="user-data properties">
+            <dd class="user-name">{{userFullName}}</dd>
+            <dt>{{balanceLabel}}:</dt>
+            <dd>
+                <span class="balance">{{balance | currency:'€ ':2}} </span>
+            </dd>
+            <dt><{{runningLabel}}:</dt>
+            <dd>
+                <span class="running-auctions-count">{{runningAuctions}}</span>
+                <span class="auction-label" >{{runningAuctionsLabel}}</span>
+            </dd>
+            <dt>{{wonLabel}}:</dt>
+            <dd>
+                <span class="won-auctions-count">{{wonAuctions}}</span>
+                <span class="auction-label" >{{wonAuctionsLabel}}</span>
+            </dd>
+            <dt>{{lostLabel}}:</dt>
+            <dd>
+                <span class="lost-auctions-count">{{lostAuctions}}</span>
+                <span class="auction-label" >{{lostAuctionsLabel}}</span>
+            </dd>
+        </dl>
+    </div>
+    <div class="recently-viewed-container">
+        <h3 class="recently-viewed-headline">{{recentlyViewedHeadline}}</h3>
+        <ul class="recently-viewed-list"></ul>
+    </div>
+</aside>
