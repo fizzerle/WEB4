@@ -328,7 +328,7 @@ bigBidApp.config(
     //$scope.storage.user = ...
 });*/
 
-bigBidApp.controller('loginController', function ($scope,$http,$location) {
+bigBidApp.controller('loginController', function ($scope,$http,$location,$locale) {
     $scope.action = 'register';
     $scope.formData = {};
     $scope.processForm = function () {
@@ -352,6 +352,19 @@ bigBidApp.controller('loginController', function ($scope,$http,$location) {
                 }
             });
     };
+
+    if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
+        //Code, wenn der Browser auf Deutsch eingestellt ist
+        $scope.emailError = 'Geben sie eine gültige Email-Adresse ein!';
+        $scope.passwordError = 'Gegen sie ein Passwort mit 4-8 zeichen an!';
+
+
+    } else {
+        //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
+        $scope.emailError = 'Type in a valid email-adress!';
+        $scope.passwordError = 'Type in a password with 4-8 characters!';
+
+    }
 });
 
 bigBidApp.controller('registerController', function ($scope,$locale) {

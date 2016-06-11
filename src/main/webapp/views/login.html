@@ -2,19 +2,24 @@
 <div ng-include="" src="'../views/header.html'"></div>
 <section class="main-container">
 <main role="main" aria-labelledby="formheadline">
-    <form class="form" ng-submit="processForm()">
+    <form class="form" ng-submit="processForm()" name="loginForm">
         <h2 id="formheadline" class="registration-headline"><!--Headline--></h2>
         <div class="form-row">
             <label class="form-label" for="email-input">Email</label>
-            <input type="email" name="email" id="email-input" required class="form-input" ng-model="formData.email">
+            <input type="email" name="email" id="email-input" required class="form-input" ng-model="formData.email" required>
+
         </div>
+        <span ng-show="loginForm.email.$dirty && (loginForm.email.$error.required || loginForm.email.$error.email)" id="email-error" class="error-text" style="display: block">{{emailError}}</span>
         <div class="form-row">
             <label class="form-label" for="password-input">password</label>
-            <input type="password" name="password" id="password-input" required class="form-input" minlength="4" maxlength="12" ng-model="formData.password">
+            <input type="password" name="password" id="password-input" required class="form-input" minlength="4" maxlength="12" ng-minlenght="4" ng-maxlength="8" ng-model="formData.password" required>
         </div>
+        <span ng-show="loginForm.password.$dirty && (loginForm.password.$error.required ||
+        loginForm.password.$error.minlength || loginForm.password.$error.maxlength)" id="password-error" class="error-text" style="display: block">{{passwordError}}</span>
         <div class="form-row form-row-center">
             <button class="button button-submit">login</button>
         </div>
+
     </form>
 </main>
 </section>
