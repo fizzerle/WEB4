@@ -345,12 +345,27 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
         $scope.dateofbirthLabel = 'Geburtsdatum';
         $scope.dateofbirthError = 'Geben sie ein gültiges Datum ein!';
         $scope.ageError = 'Sie müssen mindestens 18 sein';
+        $scope.emailError = 'Geben sie eine gültige Email-Adresse ein!';
+        $scope.emailLabel = 'Email-Adresse';
+        $scope.passwordLabel = 'Passwort';
+        $scope.passwordError = 'Gegen sie ein Passwort mit 4-8 zeichen an!';
+        $scope.legendVA = 'Versandaddresse';
+        $scope.streetAndNumberLabel = 'Addresse'
+        $scope.cityLabel = 'Ort';
+        $scope.countryLabel = 'Land';
+        $scope.at = 'Österreich';
+        $scope.de = 'Deutschland';
+        $scope.ch = 'Schweiz';
+        $scope.termsLabel = 'Ich akzeptiere die AGBs! *';
+        $scope.registerButton = 'Registrieren';
+        $scope.compulsoryLabel = 'Mit * gekennzeichnete Felder sind Pflichtfelder.';
+
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
         $scope.action = 'login';
         $scope.formHeadline = 'Register';
         $scope.legendPD = 'Personal Data';
-        $scope.salutationLabel = 'salutation';
+        $scope.salutationLabel = 'Salutation';
         $scope.ms = 'Ms.';
         $scope.mr = 'Mr.';
         $scope.salutationError = 'Select a salutation!';
@@ -361,6 +376,20 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
         $scope.dateofbirthLabel = 'Date of birth';
         $scope.dateofbirthError = 'Enter a valid birthdate!';
         $scope.ageError = 'You must be at least 18!';
+        $scope.emailError = 'Type in a valid email-adress!';
+        $scope.emailLabel = 'Email';
+        $scope.passwordLabel = 'Password';
+        $scope.passwordError = 'Type in a password with 4-8 characters!';
+        $scope.legendVA = 'Shipingaddress';
+        $scope.streetAndNumberLabel = 'Address'
+        $scope.cityLabel = 'City';
+        $scope.countryLabel = 'Country';
+        $scope.at = 'Austria';
+        $scope.de = 'Germany';
+        $scope.ch = 'Switzerland';
+        $scope.termsLabel = 'I accept the Trems! *';
+        $scope.registerButton = 'register';
+        $scope.compulsoryLabel = 'The with * marked fieleds are required.';
     }
 });
 

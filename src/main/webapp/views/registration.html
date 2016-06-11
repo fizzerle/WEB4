@@ -21,7 +21,7 @@
             <label class="form-label" for="firstname-input">
                 {{firstnameLabel}} *
             </label>
-            <input type="text" name="firstname" id="firstname-input" class="form-input" ng-model="firstname" required>
+            <input type="text" name="firstname" id="firstname-input" class="form-input" ng-model="firstname" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.firstname.$dirty && registrationForm.firstname.$error.required" id="firstname-error" class="error-text" style="display: block">{{firstnameError}}</span>
@@ -29,7 +29,7 @@
             <label class="form-label" for="lastname-input">
                 {{lastnameLabel}} *
             </label>
-            <input type="text" name="lastname" id="lastname-input" class="form-input" ng-model="lastname" required>
+            <input type="text" name="lastname" id="lastname-input" class="form-input" ng-model="lastname" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.lastname.$dirty && registrationForm.lastname.$error.required" id="lastname-error" class="error-text" style="display: block">{{lastnameError}}</span>
@@ -37,105 +37,78 @@
             <label class="form-label" for="dateofbirth-input">
                 {{dateofbirthLabel}} *
             </label>
-            <input type="date" name="dateofbirth" id="dateofbirth-input" class="form-input" ng-model="dateofbirth" age required>
+            <input type="date" name="dateofbirth" id="dateofbirth-input" class="form-input" ng-model="dateofbirth" age required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.dateofbirth.$dirty && (registrationForm.dateofbirth.$error.required || registrationForm.dateofbirth.$error.date)" id="dateofbirth-input-error" class="error-text" style="display: block">{{dateofbirthError}}</span>
         <span ng-show="registrationForm.dateofbirth.$dirty &&
          !(registrationForm.dateofbirth.$error.required || registrationForm.dateofbirth.$error.date)
          && registrationForm.dateofbirth.$error.age" id="age-input-error" class="error-text" style="display: block">{{ageError}}</span>
+        <div class="form-row">
+            <label class="form-label" for="email-input">
+                {{emailLabel}} *
+            </label>
+            <input type="email" name="email" id="email-input" class="form-input" ng-model="email" required/>
+        </div>
+        <!-- Error messages -->
+        <span ng-show="registrationForm.email.$dirty && (registrationForm.email.$error.required || registrationForm.email.$error.email)" id="email-error" class="error-text" style="display: block">{{emailError}}</span>
+        <div class="form-row">
+            <label class="form-label" for="password-input">
+                {{passwordLabel}} *
+            </label>
+            <input type="password" name="password" id="password-input" class="form-input" ng-model="password" ng-minlength="4" ng-maxlength="8" required/>
+        </div>
+        <!-- Error messages -->
+        <span ng-show="registrationForm.password.$dirty && (registrationForm.password.$error.required ||
+        registrationForm.password.$error.minlength || registrationForm.password.$error.maxlength)" id="password-error" class="error-text" style="display: block">{{passwordError}}</span>
     </fieldset>
+    <fieldset>
+        <legend>{{legendVA}}</legend>
+        <div class="form-row">
+            <label class="form-label" for="streetAndNumber-input">
+                {{streetAndNumberLabel}}
+            </label>
+            <input type="text" name="streetAndNumber" id="streetAndNumber-input" class="form-input" ng-model="streetAndNumber"/>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="city-input">
+                {{cityLabel}}
+            </label>
+            <input type="text" name="city" id="city-input" class="form-input" ng-model="city"/>
+        </div>
+        <div class="form-row">
+            <label class="form-label" for="country-input">
+                {{countryLabel}}
+            </label>
+            <select type="text" name="country" id="country-input" class="form-input" ng-model="country">
+                <option value="at">{{at}}</option>
+                <option value="de">{{de}}</option>
+                <option value="ch">{{ch}}</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <div class="form-row form-row-center">
+        <p>
+            <label for="terms">
+                <input type="checkbox" name="terms" id="terms" ng-model="terms" required>
+                {{termsLabel}}
+            </label>
+        </p>
+    </div>
+
+    <div class="form-row form-row-center">
+        <button class="button button-submit register-button" ng-disabled="registrationForm.$invalid">
+            {{registerButton}}
+        </button>
+    </div>
+    <div class="form-row form-row-center">
+        <p>
+           <label>{{compulsoryLabel}}</label>
+        </p>
+    </div>
+
+
 </form>
-
-<!--
-<main role="main" aria-labelledby="formheadline">
-    <form class="form" name="registrationForm" >
-
-
-            <div class="form-row">
-                <label class="form-label" for="dateofbirth-input">
-                    <fmt:message key="registration.dateofbirth" /> *
-                </label>
-                <input type="text" name="dateofbirth" id="dateofbirth-input" class="form-input">
-            </div>
-            <c:choose>
-                <c:when test="${error.dateFormatError}">
-                    <span id="date-format-error" class="error-text"><fmt:message key="registration.error.dateFomat" /></span>
-                </c:when>
-                <c:when test="${error.dateError}">
-                    <span id="date-error" class="error-text"><fmt:message key="registration.error.date" /></span>
-                </c:when>
-            </c:choose>
-            <div class="form-row">
-                <label class="form-label" for="email-input">
-                    <fmt:message key="registration.email" /> *
-                </label>
-                <input type="text" name="email" id="email-input" class="form-input">
-            </div>
-            <c:choose>
-                <c:when test="${error.mailFormatError}">
-                    <span id="email-format-error" class="error-text"><fmt:message key="registration.error.emailFormat" /></span>
-                </c:when>
-                <c:when test="${error.mailError}">
-                    <span id="email-error" class="error-text"><fmt:message key="registration.error.email" /></span>
-                </c:when>
-            </c:choose>
-            <div class="form-row">
-                <label class="form-label" for="password-input">
-                    <fmt:message key="registration.password" /> *
-                </label>
-                <input type="password" name="password" id="password-input" class="form-input">
-            </div>
-            <c:if test="${error.passwordError}">
-                <span id="password-error" class="error-text"><fmt:message key="registration.error.password" /></span>
-            </c:if>
-        </fieldset>
-
-        <fieldset>
-            <legend><fmt:message key="registration.shippingaddress" /></legend>
-            <div class="form-row">
-                <label class="form-label" for="streetAndNumber-input">
-                    <fmt:message key="registration.streetAndNumber" />
-                </label>
-                <input type="text" name="streetAndNumber" id="streetAndNumber-input" class="form-input">
-            </div>
-            <div class="form-row">
-                <label class="form-label" for="postcodeAndCity-input">
-                    <fmt:message key="registration.postcodeAndCity" />
-                </label>
-                <input type="text" name="postcodeAndCity" id="postcodeAndCity-input" class="form-input">
-            </div>
-            <div class="form-row">
-                <label class="form-label" for="country-input">
-                    <fmt:message key="registration.country" />
-                </label>
-                <select name="country" id="country-input" class="form-input">
-                    <option value="at"><fmt:message key="registration.country.at" /></option>
-                    <option value="de"><fmt:message key="registration.country.de" /></option>
-                    <option value="ch"><fmt:message key="registration.country.ch" /></option>
-                </select>
-            </div>
-        </fieldset>
-
-        <div class="form-row form-row-center">
-            <p>
-                <label for="terms">
-                    <input type="checkbox" name="terms" id="terms" required onchange="isFormValid()">
-                    <fmt:message key="registration.acceptTerms" /> *
-                </label>
-            </p>
-        </div>
-        <div class="form-row form-row-center">
-            <button class="button button-submit register-button">
-                <fmt:message key="registration.register" />
-            </button>
-        </div>
-        <div class="form-row form-row-center">
-            <p>
-                <fmt:message key="registration.compulsoryFields" />
-            </p>
-        </div>
-    </form>
-</main>-->
 </section>
 <div ng-include="" src="'../views/footer.html'"></div>
