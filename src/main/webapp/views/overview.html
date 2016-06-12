@@ -5,7 +5,7 @@
 
 
     <main role="main" aria-labelledby="productsheadline">
-        <h2 class="main-headline" id="productsheadline">overview.headline</h2>
+        <h2 class="main-headline" id="productsheadline">Produkte</h2>
         <div class="products">
 
                 <div ng-repeat = "product in products" class="product-outer" data-product-id="{{product.id}}">
@@ -14,7 +14,8 @@
                     <dl class="product-properties properties">
                         <dt>overview.name</dt>
                         <dd class="product-name">{{product.name_de}}</dd>
-                        <dt>overview.price"</dt><dd class="product-price">{{product.highestBid.convertedAmount}}</dd>
+                        <dt>overview.price"</dt><dd ng-if="product.hasBids()"class="product-price">{{product.highestBid.convertedAmount | currency:'€':2}}</dd>
+                        <dd ng-if="!product.hasBids()"class="product-price">0 €</dd>
                     </dl>
                     </a>
                 </div>

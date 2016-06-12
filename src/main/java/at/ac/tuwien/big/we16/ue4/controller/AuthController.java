@@ -28,12 +28,18 @@ public class AuthController {
             sendUserDataback(request,response);
             return;
         }
-        //TODO: send error back
-        this.showLoginPage(request, response, false);
+        response.setContentType("application/json");
+        PrintWriter out = response.getWriter();
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("success",false);
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+        out.write(obj.toString());
     }
 
     public void postLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, PasswordHashingException, ServletException {
-    	//TODO: Try to log in and send back information about the currently logged in user
         if (this.authService.isLoggedIn(request.getSession())) {
             sendUserDataback(request,response);
             return;
@@ -51,7 +57,6 @@ public class AuthController {
                 e1.printStackTrace();
             }
             out.write(obj.toString());
-            //TODO: send back error
         }
     }
 

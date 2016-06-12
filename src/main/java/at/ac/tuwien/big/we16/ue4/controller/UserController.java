@@ -18,7 +18,7 @@ import java.util.Date;
 public class UserController {
     private final UserService userService;
     private final AuthService authService;
-
+    private final Date date = new Date(811807200000l);
     public UserController(UserService userService, AuthService authService) {
         this.userService = userService;
         this.authService = authService;
@@ -36,13 +36,10 @@ public class UserController {
 
     public void postRegister(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         FormError formError = new FormError();
-        Date date = userService.parseDate(request.getParameter("dateofbirth"));
+        /*Date date = userService.parseDate(request.getParameter("dateofbirth"));
         if (date == null) {
             formError.setDateFormatError(true);
-        }
-        while(request.getParameterNames().hasMoreElements()){
-            System.out.println(request.getParameterNames().nextElement());
-        }
+        }*/
         User user = new User(
                 request.getParameter("salutation"),
                 request.getParameter("firstname"),

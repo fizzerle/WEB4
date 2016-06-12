@@ -45,11 +45,7 @@ public class BigBidServlet extends HttpServlet {
         this.authController = new AuthController(this.authService);
         this.userController = new UserController(userService, this.authService);
         (new DataGenerator()).generateData();
-        try {
-            ServiceFactory.getComputerUserService().start(userService.getUserByEmail("jane.doe@example.com"));
-        } catch (UserNotFoundException e) {
-            // ignore
-        }
+
     }
 
     @Override

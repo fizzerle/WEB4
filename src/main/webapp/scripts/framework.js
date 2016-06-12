@@ -375,7 +375,7 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
     }
 });
 
-bigBidApp.controller('registerController', function ($scope,$locale,$http) {
+bigBidApp.controller('registerController', function ($scope,$locale,$http,$location,$localStorage) {
 
     $scope.action = 'login';
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
@@ -441,12 +441,12 @@ bigBidApp.controller('registerController', function ($scope,$locale,$http) {
         $scope.compulsoryLabel = 'The with * marked fieleds are required.';
     }
 
-    $scope.formData = {};
+    $scope.form = {};
     $scope.processForm = function () {
         $http({
             method  : 'POST',
             url     : '/registration',
-            data    : $.param($scope.user),  // pass in data as strings
+            data    : $.param($scope.form),  // pass in data as strings
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
         })
             .success(function(data) {
@@ -454,6 +454,8 @@ bigBidApp.controller('registerController', function ($scope,$locale,$http) {
 
                 if (data.success) {
                     $location.path('/overview');
+                    $localStorage.user ={"Name": data.name,"Balance":data.balance,"Running":data.running,"Won":data.won,"Lost":data.lost};
+
                 } else {
                     //TODO:ERROR could not registrate
                 }
