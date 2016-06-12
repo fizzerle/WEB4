@@ -446,7 +446,7 @@ bigBidApp.controller('registerController', function ($scope,$locale,$http) {
         $http({
             method  : 'POST',
             url     : '/registration',
-            data    : $.param($scope.formData),  // pass in data as strings
+            data    : $.param($scope.user),  // pass in data as strings
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
         })
             .success(function(data) {
