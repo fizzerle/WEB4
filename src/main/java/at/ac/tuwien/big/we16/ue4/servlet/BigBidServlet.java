@@ -199,7 +199,6 @@ public class BigBidServlet extends HttpServlet {
             request.getRequestDispatcher("/views/view.html").forward(request, response);
             return true;
         }
-        //TODO: ist noch nicht fertig hier drunter
         request.setAttribute("user", this.authService.getUser(request.getSession()));
         return false;
     }

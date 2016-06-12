@@ -2,7 +2,7 @@
 
 
 <section class="main-container">
-<form class="form" name="registrationForm" novalidate><!--method post was here-->
+<form class="form" name="registrationForm" ng-submit="processForm()" novalidate><!--method post was here-->
     <h2 id="formheadline" class="registration-headline">{{formHeadline}}</h2>
     <fieldset>
         <legend>{{legendPD}}</legend>
@@ -10,7 +10,7 @@
             <label class="form-label" for="salutation-input">
                 {{salutationLabel}} *
             </label>
-            <select name="salutation" id="salutation-input" class="form-input" ng-model="salutation" required>
+            <select name="salutation" id="salutation-input" class="form-input" ng-model="salutation" ng-model="formData.salutation" required>
                 <option value="ms">{{ms}}</option>
                 <option value="mr">{{mr}}</option>
             </select>
@@ -21,7 +21,7 @@
             <label class="form-label" for="firstname-input">
                 {{firstnameLabel}} *
             </label>
-            <input type="text" name="firstname" id="firstname-input" class="form-input" ng-model="firstname" required/>
+            <input type="text" name="firstname" id="firstname-input" class="form-input" ng-model="firstname" ng-model="formData.firstname" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.firstname.$dirty && registrationForm.firstname.$error.required" id="firstname-error" class="error-text" style="display: block">{{firstnameError}}</span>
@@ -29,7 +29,7 @@
             <label class="form-label" for="lastname-input">
                 {{lastnameLabel}} *
             </label>
-            <input type="text" name="lastname" id="lastname-input" class="form-input" ng-model="lastname" required/>
+            <input type="text" name="lastname" id="lastname-input" class="form-input" ng-model="lastname" ng-model="formData.lastname" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.lastname.$dirty && registrationForm.lastname.$error.required" id="lastname-error" class="error-text" style="display: block">{{lastnameError}}</span>
@@ -37,7 +37,7 @@
             <label class="form-label" for="dateofbirth-input">
                 {{dateofbirthLabel}} *
             </label>
-            <input type="date" name="dateofbirth" id="dateofbirth-input" class="form-input" ng-model="dateofbirth" age required/>
+            <input type="date" name="dateofbirth" id="dateofbirth-input" class="form-input" ng-model="formData.dateofbirth" age required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.dateofbirth.$dirty && (registrationForm.dateofbirth.$error.required || registrationForm.dateofbirth.$error.date)" id="dateofbirth-input-error" class="error-text" style="display: block">{{dateofbirthError}}</span>
@@ -48,7 +48,7 @@
             <label class="form-label" for="email-input">
                 {{emailLabel}} *
             </label>
-            <input type="email" name="email" id="email-input" class="form-input" ng-model="email" required/>
+            <input type="email" name="email" id="email-input" class="form-input" ng-model="formData.email" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.email.$dirty && (registrationForm.email.$error.required || registrationForm.email.$error.email)" id="email-error" class="error-text" style="display: block">{{emailError}}</span>
@@ -56,7 +56,7 @@
             <label class="form-label" for="password-input">
                 {{passwordLabel}} *
             </label>
-            <input type="password" name="password" id="password-input" class="form-input" ng-model="password" ng-minlength="4" ng-maxlength="8" required/>
+            <input type="password" name="password" id="password-input" class="form-input" ng-model="formData.password" ng-minlength="4" ng-maxlength="8" required/>
         </div>
         <!-- Error messages -->
         <span ng-show="registrationForm.password.$dirty && (registrationForm.password.$error.required ||
@@ -68,19 +68,19 @@
             <label class="form-label" for="streetAndNumber-input">
                 {{streetAndNumberLabel}}
             </label>
-            <input type="text" name="streetAndNumber" id="streetAndNumber-input" class="form-input" ng-model="streetAndNumber"/>
+            <input type="text" name="streetAndNumber" id="streetAndNumber-input" class="form-input" ng-model="formData.streetAndNumber"/>
         </div>
         <div class="form-row">
             <label class="form-label" for="city-input">
                 {{cityLabel}}
             </label>
-            <input type="text" name="city" id="city-input" class="form-input" ng-model="city"/>
+            <input type="text" name="city" id="city-input" class="form-input" ng-model="formData.city"/>
         </div>
         <div class="form-row">
             <label class="form-label" for="country-input">
                 {{countryLabel}}
             </label>
-            <select type="text" name="country" id="country-input" class="form-input" ng-model="country">
+            <select type="text" name="country" id="country-input" class="form-input" ng-model="formData.country">
                 <option value="at">{{at}}</option>
                 <option value="de">{{de}}</option>
                 <option value="ch">{{ch}}</option>
@@ -91,7 +91,7 @@
     <div class="form-row form-row-center">
         <p>
             <label for="terms">
-                <input type="checkbox" name="terms" id="terms" ng-model="terms" required>
+                <input type="checkbox" name="terms" id="terms" ng-model="formData.terms" required>
                 {{termsLabel}}
             </label>
         </p>

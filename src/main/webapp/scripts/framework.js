@@ -123,7 +123,7 @@ function formatCurrency(x) {
     // regex from http://stackoverflow.com/a/2901298
     return x.toFixed(2).replace(".", $("body").data('decimal-separator')).replace(/\B(?=(\d{3})+(?!\d))/g, $("body").data('grouping-separator')) + "&nbsp;€";
 }
-
+http://stackoverflow.com/questions/22570357/angularjs-access-controller-scope-from-outside
 $('.bid-form').on('submit', function(e) {
     e.preventDefault();
     $.post(
@@ -341,6 +341,7 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
             headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
         })
             .success(function(data) {
+                console.log($scope.formData);
                 console.log(data);
 
                 if (data.success) {
@@ -374,7 +375,7 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
     }
 });
 
-bigBidApp.controller('registerController', function ($scope,$locale) {
+bigBidApp.controller('registerController', function ($scope,$locale,$http) {
 
     $scope.action = 'login';
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
@@ -439,6 +440,26 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
         $scope.registerButton = 'register';
         $scope.compulsoryLabel = 'The with * marked fieleds are required.';
     }
+
+    $scope.formData = {};
+    $scope.processForm = function () {
+        $http({
+            method  : 'POST',
+            url     : '/registration',
+            data    : $.param($scope.formData),  // pass in data as strings
+            headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+        })
+            .success(function(data) {
+                console.log(data);
+
+                if (data.success) {
+                    $location.path('/overview');
+                } else {
+                    //TODO:ERROR could not registrate
+                }
+            });
+    };
+    
 });
 
 bigBidApp.controller('overviewController', function ($scope,$locale,$http,$location,$localStorage) {
