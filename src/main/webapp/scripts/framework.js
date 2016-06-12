@@ -456,12 +456,50 @@ bigBidApp.controller('overviewController', function ($scope,$locale,$http,$locat
         }else{
             $scope.runningAuctionsLabel = 'Auktionen';
         }
+        $scope.wonLabel = 'Gewonnen';
+        $scope.wonAuctions = $localStorage.user.Won;
+        if ($scope.wonAuctions == 1){
+            $scope.wonAuctionsLabel = 'Auktion';
+        }else{
+            $scope.wonAuctionsLabel = 'Auktionen';
+        }
+        $scope.lostLabel = 'Verloren';
+        $scope.lostAuctions = $localStorage.user.Lost;
+        if ($scope.lostAuctions == 1){
+            $scope.lostAuctionsLabel = 'Auktion';
+        }else{
+            $scope.lostAuctionsLabel = 'Auktionen';
+        }
 
 
 
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
         $scope.actionName = 'logout';
+        $scope.userFullName = $localStorage.user.Name;
+        $scope.balanceLabel = 'Balance';
+        $scope.balance = $localStorage.user.Balance;
+        $scope.runningLabel = 'Running';
+        $scope.runningAuctions = $localStorage.user.Running;
+        if ($scope.runningAuctions == 1){
+            $scope.runningAuctionsLabel = 'auction';
+        }else{
+            $scope.runningAuctionsLabel = 'auctions';
+        }
+        $scope.wonLabel = 'Won';
+        $scope.wonAuctions = $localStorage.user.Won;
+        if ($scope.wonAuctions == 1){
+            $scope.wonAuctionsLabel = 'auction';
+        }else{
+            $scope.wonAuctionsLabel = 'auctions';
+        }
+        $scope.lostLabel = 'Lost';
+        $scope.lostAuctions = $localStorage.user.Lost;
+        if ($scope.lostAuctions == 1){
+            $scope.lostAuctionsLabel = 'auction';
+        }else{
+            $scope.lostAuctionsLabel = 'auctions';
+        }
 
 
     }
