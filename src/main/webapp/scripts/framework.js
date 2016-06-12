@@ -323,12 +323,13 @@ bigBidApp.config(
     }
 );
 
-/*bigBidApp.controller('General',function ($scope,$http,$locale,$localStorage) {
+bigBidApp.controller('General',function ($scope,$http,$locale,$localStorage) {
     $scope.storage = $localStorage;
-    //$scope.storage.user = ...
-});*/
+    $scope.storage.user = {"Name":"","Balance":"","Running":"","Won":"","Lost":""};
+    $localStorage.user = {"Name":"","Balance":"","Running":"","Won":"","Lost":""};
+});
 
-bigBidApp.controller('loginController', function ($scope,$http,$location,$locale) {
+bigBidApp.controller('loginController', function ($scope,$http,$location,$locale,$localStorage) {
     $scope.credentialsError = '';
 
     $scope.formData = {};
@@ -345,15 +346,19 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
                 if (data.success) {
                     $scope.credentialsError = '';
                     $location.path('/overview');
+                    $localStorage.user ={"Name": data.name,"Balance":data.balance,"Running":data.running,"Won":data.won,"Lost":data.lost};
+
                 } else {
                     $scope.credentialsError = $scope.credentialsErrorBuffer;
-                }
+
+            }
             });
     };
 
+    $scope.action = 'register';
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
         //Code, wenn der Browser auf Deutsch eingestellt ist
-        $scope.action = 'Registrieren';
+        $scope.actionName = 'Registrieren';
         $scope.emailError = 'Geben sie eine gültige Email-Adresse ein!';
         $scope.passwordError = 'Gegen sie ein Passwort mit 4-8 zeichen an!';
         $scope.credentialsErrorBuffer = 'Username oder Passwort ist falsch!';
@@ -361,7 +366,7 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
 
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
-        $scope.action = 'register';
+        $scope.actionName = 'register';
         $scope.emailError = 'Type in a valid email-adress!';
         $scope.passwordError = 'Type in a password with 4-8 characters!';
         $scope.credentialsErrorBuffer= 'Username or Password is wrong!';
@@ -371,9 +376,10 @@ bigBidApp.controller('loginController', function ($scope,$http,$location,$locale
 
 bigBidApp.controller('registerController', function ($scope,$locale) {
 
+    $scope.action = 'login';
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
         //Code, wenn der Browser auf Deutsch eingestellt ist
-        $scope.action = 'Anmelden';
+        $scope.actionName = 'Anmelden';
         $scope.formHeadline = 'Registrieren';
         $scope.legendPD = 'Persönliche Daten';
         $scope.salutationLabel = 'Anrede';
@@ -404,7 +410,7 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
 
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
-        $scope.action = 'login';
+        $scope.actionName = 'login';
         $scope.formHeadline = 'Register';
         $scope.legendPD = 'Personal Data';
         $scope.salutationLabel = 'Salutation';
@@ -435,16 +441,27 @@ bigBidApp.controller('registerController', function ($scope,$locale) {
     }
 });
 
-bigBidApp.controller('overviewController', function ($scope,$locale,$http,$location) {
+bigBidApp.controller('overviewController', function ($scope,$locale,$http,$location,$localStorage) {
+    $scope.action = 'logout';
     if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
         //Code, wenn der Browser auf Deutsch eingestellt ist
-        $scope.action = 'Abmelden';
+        $scope.actionName = 'Abmelden';
+        $scope.userFullName = $localStorage.user.Name;
+        $scope.balanceLabel = 'Guthaben';
+        $scope.balance = $localStorage.user.Balance;
+        $scope.runningLabel = 'Laufend';
+        $scope.runningAuctions = $localStorage.user.Running;
+        if ($scope.runningAuctions == 1){
+            $scope.runningAuctionsLabel = 'Auktion';
+        }else{
+            $scope.runningAuctionsLabel = 'Auktionen';
+        }
 
 
 
     } else {
         //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
-        $scope.action = 'logout';
+        $scope.actionName = 'logout';
 
 
     }
@@ -466,7 +483,17 @@ bigBidApp.controller('overviewController', function ($scope,$locale,$http,$locat
 });
 
 bigBidApp.controller('detailsController', function ($scope) {
-    $scope.action = 'logout';
+    $scope.action = 'logout'
+    if ($locale.id.startsWith('de') || navigator.language.startsWith('de')) {
+        //Code, wenn der Browser auf Deutsch eingestellt ist
+        $scope.actionName = 'Abmelden';
+
+    } else {
+        //Code, wenn der Browser nicht auf Deutsch eingestellt ist (Englischer Text)
+        $scope.actionName = 'logout';
+
+
+    }
 });
 
 bigBidApp.directive('age',function () {
